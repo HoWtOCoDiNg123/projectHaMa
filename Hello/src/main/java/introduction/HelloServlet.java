@@ -5,23 +5,14 @@ import java.io.PrintWriter;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-/**
- * Servlet implementation class HelloServlet
- */
 
 public class HelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public HelloServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String input = request.getParameter("input");
 		Calculator calculator = new Calculator(input);
@@ -37,9 +28,6 @@ public class HelloServlet extends HttpServlet {
 				+ "    </body></html>");
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

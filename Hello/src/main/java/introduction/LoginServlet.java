@@ -10,22 +10,14 @@ import javax.servlet.http.*;
 import dao.DAO;
 import entity.User;
 
-/**
- * Servlet implementation class LoginServlet
- */
+
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public LoginServlet() {
         super();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User loggedUser = null;
 		Cookie[] cookies = request.getCookies();
@@ -64,9 +56,6 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(); 
 		String username = request.getParameter("username");
@@ -77,22 +66,16 @@ public class LoginServlet extends HttpServlet {
 		boolean isValidUser = false;
 		for(User user : users) {
 			if(user.equals(tempUser)) {
-				//request.setAttribute("user", username);
 				isValidUser = true;
 				loggedUser = user;
 			}
 		}
 		
 		if(isValidUser) {
-			//request.setAttribute("user", username);
-			session.setAttribute("logged_user", loggedUser);
-			//httpSession.setMaxInactiveInterval(10 * 60);
-			
+			session.setAttribute("logged_user", loggedUser);			
 			Cookie cookie = new Cookie("username", username);
 			cookie.setMaxAge(20);
-			
 			response.addCookie(cookie);
-			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
