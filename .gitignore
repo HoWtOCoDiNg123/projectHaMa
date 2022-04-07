@@ -14,3 +14,5 @@
 *.jj
 *.tmp
 Hello/build/classes/.gitignore
+# Java class files
+*.class

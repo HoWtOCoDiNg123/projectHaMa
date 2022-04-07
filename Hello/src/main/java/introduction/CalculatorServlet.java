@@ -22,7 +22,6 @@ public class CalculatorServlet extends HttpServlet {
 		request.setAttribute("input_text", operand);	
 		RequestDispatcher dispatcher = request.getRequestDispatcher("calculator.jsp");
 		dispatcher.forward(request, response);
-		
 	}
 
 }
