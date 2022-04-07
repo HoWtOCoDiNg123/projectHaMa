@@ -14,9 +14,13 @@ public class LogoutServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//To remove an existing coolie, you have to generate a new cookie with
+		//the same name and set its maximum age to 0
 		Cookie cookie = new Cookie("username", "");
 		cookie.setMaxAge(0);
 		response.addCookie(cookie);
+		
+		//After logging out, the user gets the login view
 		response.sendRedirect("login");
 	}
 }

@@ -21,6 +21,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User loggedUser = null;
 		Cookie[] cookies = request.getCookies();
+		//Loop over the cookie array to get the cookie. There is no possibility
+		//to get the cookie directly
 		try {
 			for(Cookie cookie : cookies) {
 				if(cookie.getName().equals("username")) {
@@ -41,23 +43,22 @@ public class LoginServlet extends HttpServlet {
 					+ "    </body></html>");
 		}
 
-		
 		if(loggedUser == null) {
-			//request.setAttribute("user", loggedUser);
+			//If the user doesn't exist, the unknown user gets the login view
 			RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 			dispatcher.forward(request, response);
 		} 
 		else {
-			if(loggedUser != null) {
-				
-			}
+			//user exists and gets the personal view(=index view)
 			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(); 
+		HttpSession session = request.getSession();
+		
+		//Get parameters from input fields
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		User tempUser = new User(username, password);
@@ -66,12 +67,15 @@ public class LoginServlet extends HttpServlet {
 		boolean isValidUser = false;
 		for(User user : users) {
 			if(user.equals(tempUser)) {
+				//temp user is a valid user
 				isValidUser = true;
 				loggedUser = user;
 			}
 		}
 		
 		if(isValidUser) {
+			// if user is a valid user, the cookie can be set and
+			//logged_user attribute can be set to welcome user in index view
 			session.setAttribute("logged_user", loggedUser);			
 			Cookie cookie = new Cookie("username", username);
 			cookie.setMaxAge(20);
@@ -80,6 +84,7 @@ public class LoginServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		else {
+			//No valid user gets login view
 			response.sendRedirect("login");
 		}
 	}

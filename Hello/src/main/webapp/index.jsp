@@ -11,6 +11,8 @@
 	<h1>Welcome to your personal profile, 
 	<% 
    	HttpSession ses = request.getSession();
+	
+	//Get the created user, created in LoginServlet post()
 	User user =  (User) ses.getAttribute("logged_user");
 	
 	if(user != null){

@@ -14,6 +14,7 @@
 		<input type="submit" value="Submit">
 	</form>
 	<% 
+	//TODO: Don't make calculation in view!
 	String inputText = (String)request.getAttribute("input_text");
 	Double result = null;
 	try{
